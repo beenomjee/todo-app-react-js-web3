@@ -1,0 +1,48 @@
+@import "../../styles";
+
+.bgWrapper {
+  @include position(fixed, 0, 0, 0, 0);
+  z-index: 200;
+  background-color: rgba($color: $black, $alpha: 0.3);
+  backdrop-filter: blur(6px);
+}
+
+.center {
+  @include position(fixed, 50%, 50%);
+  transform: translate(-50%, -50%);
+  z-index: 201;
+
+  & > .container {
+    width: 42rem;
+    max-width: 85vw;
+    padding: 3rem;
+    background-color: $white;
+
+    & > input {
+      width: 100%;
+      padding: 0.8rem 1.6rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba($color: $dark, $alpha: 0.3);
+      outline: none;
+
+      &:focus {
+        outline: 2px solid $link;
+      }
+    }
+
+    & > button {
+      display: block;
+      width: 100%;
+      margin-top: 1rem;
+      cursor: pointer;
+      background-color: $success;
+      border: none;
+      outline: none;
+      border-radius: 0.5rem;
+      color: $white;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 0.8rem;
+    }
+  }
+}

@@ -1,0 +1,190 @@
+@import "../../styles";
+
+.item {
+  @include flex(row, center, flex-start, 0.8rem * 1.6);
+  user-select: none;
+  cursor: pointer;
+  border-radius: 0.5rem * 1.6;
+  transition: transform 0.2s, shadow 0.2s;
+  padding-right: 0.7rem * 1.6;
+
+  & > p {
+    flex: 1;
+    @include flex(row, center, flex-start, 0.8rem * 1.6);
+    padding: 0.7rem * 1.6;
+
+    & > .circle {
+      @include center();
+      font-size: 1.2rem * 1.6;
+      color: #cbcbcb;
+
+      &.completed {
+        color: #4e4e4e;
+      }
+    }
+
+    & > span:nth-child(2) {
+      flex: 1;
+      @include font(1rem * 1.6, 400, 1.2rem * 1.6);
+      color: #4e4e4e;
+    }
+  }
+
+  & > button {
+    @include center();
+    font-size: 1rem * 1.6;
+    color: $success;
+    opacity: 0;
+    transition: opacity 0.2s;
+
+    &:last-child {
+      color: $danger;
+      font-size: 1.2rem * 1.6;
+    }
+  }
+
+  &.deleted {
+    cursor: not-allowed;
+    & > p > span:nth-child(2) {
+      text-decoration: line-through;
+    }
+  }
+
+  &:not(.deleted):hover {
+    @include shadow($shadow-color);
+    transform: scale(1.05);
+    & > button {
+      opacity: 1;
+    }
+  }
+}
+
+.center {
+  min-height: 100vh;
+  @include center();
+
+  .container {
+    background-color: $white;
+    padding: 3rem * 1.6 2rem * 1.6;
+    width: 42rem * 1.6;
+    max-width: 85vw;
+    min-height: 20vh;
+    max-height: 80vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    @include hideScrollbar();
+    position: relative;
+    @include scaleYAnimation(0.2s);
+
+    & > .top {
+      @include flex(row, center, space-between);
+      padding: 0rem * 1.6 1rem * 1.6;
+
+      & > .left {
+        @include font(1.8rem * 1.6, 700, 2.1rem * 1.6);
+        color: $dark;
+      }
+
+      & > .right {
+        position: relative;
+
+        & > button {
+          font-size: 1.6rem * 1.6;
+          padding: 0.3rem * 1.6;
+          color: rgba($color: $secondary, $alpha: 0.5);
+        }
+
+        & > .menu {
+          @include position(absolute, calc(70%), unset, 50%);
+          z-index: 5;
+          @include shadow($shadow-color);
+          border-radius: 1rem * 1.6;
+          overflow: hidden;
+          transform-origin: right 0;
+          transform: scale(0);
+          transition: transform 0.2s;
+          background-color: $white;
+
+          & > button {
+            padding: 0.6rem * 1.6 1rem * 1.6;
+            @include font(0.8rem * 1.6, 400, 0.9rem * 1.6);
+            border: none;
+            outline: none;
+            background-color: transparent;
+            cursor: pointer;
+            width: 100%;
+
+            &:not(:last-child) {
+              border-bottom: 1px solid rgba($color: $secondary, $alpha: 0.2);
+            }
+
+            &:hover {
+              background-color: $light;
+            }
+
+            &.selected {
+              color: $link;
+            }
+          }
+        }
+
+        &.open {
+          & > .menu {
+            transform: scale(1);
+          }
+        }
+      }
+    }
+
+    & > .bottom {
+      margin-top: 2rem * 1.6;
+
+      & > p {
+        padding: 0.7rem * 1.6 1rem * 1.6;
+        font-size: 1.2rem * 1.6;
+        color: $dark;
+      }
+
+      & > div {
+        margin-bottom: 0.8rem * 1.6;
+
+        &.addNew {
+          @include flex(row, center, flex-start, 0.8rem * 1.6);
+          user-select: none;
+          cursor: pointer;
+          border-radius: 0.5rem * 1.6;
+          transition: opacity 0.2s;
+          padding: 0.7rem * 1.6 1rem * 1.6;
+
+          & > span {
+            @include center();
+            font-size: 1.2rem * 1.6;
+            color: $link;
+          }
+
+          & > p {
+            flex: 1;
+            @include font(1rem * 1.6, 400, 1.2rem * 1.6);
+            color: $link;
+          }
+
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+
+    & > .lodingWrapper {
+      @include position(absolute, 0, 0, 0, 0);
+      z-index: 100;
+      background-color: rgba($color: $white, $alpha: 0.3);
+      backdrop-filter: blur(6px);
+      @include center();
+
+      & > span {
+        font-size: 3rem * 1.6;
+      }
+    }
+  }
+}
